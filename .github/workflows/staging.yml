@@ -1,0 +1,22 @@
+name: Host a staging instance of the API
+
+on: workflow_dispatch
+
+jobs:
+  staging:
+    name: Build and deploy to staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh into machine, and clone repo
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/ubuntu/clones
+            git clone https://github.com/crux-bphc/infra-sprint-express.git
+            cd infra-sprint-express
+            docker compose down
+            docker compose up --build
