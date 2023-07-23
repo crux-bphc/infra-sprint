@@ -10,7 +10,6 @@ jobs:
       - name: ssh into machine, and clone repo
         uses: appleboy/ssh-action@v1.0.0
         with:
-          debug: true
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
@@ -21,4 +20,4 @@ jobs:
             git reset --hard HEAD
             git pull
             docker compose down
-            docker compose up --build
+            docker compose up --build -d
