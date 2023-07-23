@@ -16,7 +16,8 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/ubuntu/clones
-            git clone https://github.com/crux-bphc/infra-sprint-express.git
             cd infra-sprint-express
+            git reset --hard HEAD
+            git pull
             docker compose down
             docker compose up --build
